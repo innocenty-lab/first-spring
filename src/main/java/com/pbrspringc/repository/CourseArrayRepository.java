@@ -3,6 +3,7 @@ package com.pbrspringc.repository;
 import com.pbrspringc.entity.Course;
 import com.pbrspringc.util.IRandomStringGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,8 @@ public class CourseArrayRepository implements ICourseRepository {
     private List<Course> courseList = new ArrayList<>();
 
     @Autowired
-    IRandomStringGenerator randomStringGenerator;
+    @Qualifier("int")
+    IRandomStringGenerator randomID;
 
     @Override
     public List<Course> getAll() {
@@ -20,7 +22,7 @@ public class CourseArrayRepository implements ICourseRepository {
 
     @Override
     public Course create(Course course) {
-        course.setCourseId(randomStringGenerator.random());
+        course.setCourseId(randomID.random());
         courseList.add(course);
         return course;
     }

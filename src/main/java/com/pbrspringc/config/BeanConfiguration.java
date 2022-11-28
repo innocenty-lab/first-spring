@@ -5,7 +5,9 @@ import com.pbrspringc.repository.ICourseRepository;
 import com.pbrspringc.service.CourseService;
 import com.pbrspringc.service.ICourseService;
 import com.pbrspringc.util.IRandomStringGenerator;
+import com.pbrspringc.util.RandomInt;
 import com.pbrspringc.util.UidGenerator;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -25,7 +27,14 @@ public class BeanConfiguration {
     }
 
     @Bean
+    @Qualifier("uid")
     public IRandomStringGenerator getRandomUid(){
         return new UidGenerator();
+    }
+
+    @Bean
+    @Qualifier("int")
+    public IRandomStringGenerator getRandomInt() {
+        return new RandomInt();
     }
 }
