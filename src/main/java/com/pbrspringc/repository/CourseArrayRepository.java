@@ -2,16 +2,22 @@ package com.pbrspringc.repository;
 
 import com.pbrspringc.entity.Course;
 import com.pbrspringc.util.IRandomStringGenerator;
+import com.thedeanda.lorem.Lorem;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class CourseArrayRepository implements ICourseRepository {
     private List<Course> courseList = new ArrayList<>();
     private final IRandomStringGenerator randomGenerator;
+    private final Lorem lorem;
 
-    public CourseArrayRepository(IRandomStringGenerator randomID) {
+    public CourseArrayRepository(@Qualifier("uid") IRandomStringGenerator randomID, Lorem lorem) {
         this.randomGenerator = randomID;
+        this.lorem = lorem;
     }
 
     @Override
@@ -22,6 +28,7 @@ public class CourseArrayRepository implements ICourseRepository {
     @Override
     public Course create(Course course) {
         course.setCourseId(randomGenerator.random());
+        course.setDescription(lorem.getWords(20));
         courseList.add(course);
         return course;
     }

@@ -1,7 +1,12 @@
 package com.pbrspringc.util;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
 import java.util.Random;
 
+@Component
+@Qualifier("int")
 public class RandomInt implements IRandomStringGenerator {
     @Override
     public String random() {

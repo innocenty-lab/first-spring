@@ -2,9 +2,11 @@ package com.pbrspringc.service;
 
 import com.pbrspringc.entity.Course;
 import com.pbrspringc.repository.ICourseRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CourseService implements ICourseService{
     private ICourseRepository courseRepository;
 
