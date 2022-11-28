@@ -8,20 +8,30 @@ import com.pbrspringc.util.IRandomStringGenerator;
 import com.pbrspringc.util.RandomInt;
 import com.pbrspringc.util.UidGenerator;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 
 @Configuration
+@PropertySource("classpath:app.properties")
 public class BeanConfiguration {
-    @Bean
-    @Scope("prototype")
+    @Value("${generator.type}")
+    String randomType;
+
+    @Bean("courseRepositoryBean")
+//    @Scope("prototype")
     public ICourseRepository getCourseRepository(){
-        return new CourseArrayRepository();
+        System.out.println(randomType);
+        if (randomType.equals("int")) {
+            return new CourseArrayRepository(getRandomInt());
+        }
+        return new CourseArrayRepository(getRandomUid());
     }
 
-    @Bean
-    @Scope("prototype")
+    @Bean("courseServiceBean")
+//    @Scope("prototype")
     public ICourseService getCourseService(){
         return new CourseService(getCourseRepository());
     }
